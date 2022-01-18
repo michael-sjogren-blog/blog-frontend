@@ -1,5 +1,4 @@
 <script>
-import Header from "$lib/Header.svelte";
 
 </script>
 <article class="index">
