@@ -1,7 +1,7 @@
 <nav>
     <ul>
         <li>
-            <a href="/"><span>Blog Site</span></a>
+            <a href="/"><span>Logo</span></a>
         </li>
         <li>
             <a href="/blog">Blog</a>
@@ -15,13 +15,19 @@
 <style>
     nav {
         max-width: 100%;
-        background-color: rgb(247, 247, 247);
+        background-color: rgb(34, 43, 43);
+    }
+    a {
+    }
+    li {
+        margin-bottom: 1rem;
     }
     ul {
         max-width: 900px;
         margin: 0 0 auto 0;
         display: flex;
-        padding: 2rem;
+        flex-wrap: wrap;
+        padding: 1rem;
         justify-content: space-around;
     }
 </style>
