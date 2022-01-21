@@ -1,13 +1,18 @@
+<script>
+
+import { page } from "$app/stores";
+
+</script>
 <nav>
     <ul>
         <li>
-            <a href="/"><span>Logo</span></a>
+            <a class:active={$page.url.pathname === "/"} href="/"><span>My Blog</span></a>
         </li>
         <li>
-            <a href="/blog">Blog</a>
+            <a class:active={$page.url.pathname === "/blog"} href="/blog">Blog</a>
         </li>
         <li>
-            <a href="/about">About</a>
+            <a class:active={$page.url.pathname === "/about"} href="/about">About</a>
         </li>
     </ul>
 </nav>
@@ -18,9 +23,16 @@
         background-color: rgb(34, 43, 43);
     }
     a {
+        text-transform: uppercase;        
+    }
+
+    .active {
+        color: var(--white);
     }
     li {
-        margin-bottom: 1rem;
+        margin: 1rem 0;
+        min-width: 200px;
+        height: auto;
     }
     ul {
         max-width: 900px;
