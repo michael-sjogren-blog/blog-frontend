@@ -6,15 +6,25 @@ export const endpoints = {
     authors:"Authors",
 }
 
+const request = {
+    method: '',
+    cache:'no-cache',
+    headers: {
+        'Content-Type':'application/json'
+    },
+    redirect:'follow',
+    referrerPolicy: 'no-referrer',
+    body:''
+}
 
-export const getOne = async(endpoint,id) => {
+export const getOne = async(endpoint = "", id = "") => {
     const route = `${baseApiUrl}${endpoint}/${id}`;
     const res = await fetch(route)
     const data = await res.json();
     return data;
 }
 
-export const getAll = async(endpoint) => {
+export const getAll = async(endpoint = "") => {
     const route = `${baseApiUrl}${endpoint}`;
     console.log(route)
     const res = await fetch(route)
@@ -22,14 +32,55 @@ export const getAll = async(endpoint) => {
     return data;
 }
 
-export const deleteOne = async(endpoint,id) => {
+export const deleteOne = async(endpoint="",id="") => {
+    let newReq = {...request}
+    newReq.method = 'DELETE'
+    const route = `${baseApiUrl}${endpoint}/${id}`;
+
+    const res = await fetch(route,newReq)
+    const response = await res.json()
+    if (response.ok){
+        console.log("Delete Ok")
+        return true;
+    }
+    else{
+        console.log("Delete Failed")
+        return false;
+    }
+}
+
+export const create = async(endpoint,data) => {
+    let newReq = {...request}
+    const route = `${baseApiUrl}${endpoint}`;
+
+    newReq.method = 'POST'
+    newReq.body = JSON.stringify(data)
+
+    const res = await fetch(route,newReq)
     
+    if (res.ok){
+        const newData = await res.json()
+        return newData
+    }
+    else{
+        console.log("Create Failed")
+    }
 }
 
-export const create = async(endpoint,body) => {
+export const update = async(endpoint="",data={},id="") => {
+    let newReq = {...request}
+    
+    newReq.method = 'PUT'
+    newReq.body = JSON.stringify(data)
+    const route = `${baseApiUrl}${endpoint}/${id}`;
 
-}
-
-export const update = async(endpoint,body,id) => {
-
+    const res = await fetch(route,newReq)
+    const response = await res.json()
+    
+    if (response.ok){
+        console.log(" Ok" , response.data)
+    }
+    else{
+        console.log("Failed")
+    }
 }
