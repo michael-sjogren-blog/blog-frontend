@@ -49,22 +49,22 @@ export const deleteOne = async(endpoint="",id="") => {
     }
 }
 
-export const create = async(endpoint,data) => {
+export const create = async(endpoint,payload) => {
     let newReq = {...request}
     const route = `${baseApiUrl}${endpoint}`;
 
     newReq.method = 'POST'
-    newReq.body = JSON.stringify(data)
-
+    newReq.body = JSON.stringify(payload)
     const res = await fetch(route,newReq)
-    
-    if (res.ok){
-        const newData = await res.json()
-        return newData
-    }
-    else{
-        console.log("Create Failed")
-    }
+    if (res.ok)
+    {
+        const data = await res.json()
+        if(res.status === 200)
+        {
+            return data
+        }
+        return data
+    }   
 }
 
 export const update = async(endpoint="",data={},id="") => {
