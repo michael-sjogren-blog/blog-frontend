@@ -1,6 +1,6 @@
 <script>
 import { onMount } from "svelte";
-
+import CreatePostForm from "$lib/CreatePostForm.svelte";
 import { endpoints, getAll } from "../services/Api.js";
 
 
@@ -15,7 +15,7 @@ import { endpoints, getAll } from "../services/Api.js";
 
 <article>
     <h2>Blog Posts</h2>
-
+    <CreatePostForm></CreatePostForm>
     {#each posts as {id,title, content} (id)}
         <article class="post">
             <h4 class="title">
