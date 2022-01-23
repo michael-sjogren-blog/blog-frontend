@@ -38,8 +38,8 @@ export const deleteOne = async(endpoint="",id="") => {
     const route = `${baseApiUrl}${endpoint}/${id}`;
 
     const res = await fetch(route,newReq)
-    const response = await res.json()
-    if (response.ok){
+    const data = await res.json()
+    if (res.ok){
         console.log("Delete Ok")
         return true;
     }
