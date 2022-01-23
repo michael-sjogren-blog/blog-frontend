@@ -2,7 +2,9 @@
 :root {
     --black:#354b46;
     --primary: #00ebcb;
-    --link:var(--primary);
+    --secondary: #55a997;
+    --pop: #942235;
+    --link: #00b3e5;
     --white: #feffff;
 }
 
@@ -16,6 +18,12 @@
     color: inherit;
 }
 
+.btn{
+    font-size: 1.2rem;
+    padding: .25em;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
 
 a {
     font-weight: 500;
