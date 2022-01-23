@@ -1,7 +1,7 @@
 <script>
 import { onMount } from "svelte";
 import CreatePostForm from "$lib/CreatePostForm.svelte";
-import { endpoints, getAll } from "../services/Api.js";
+import { deleteOne, endpoints, getAll } from "../services/Api.js";
 
 
     let posts = [];
@@ -10,6 +10,10 @@ import { endpoints, getAll } from "../services/Api.js";
             data => posts = data
         )
     })
+
+    const onDeletePost = (id) => {
+        deleteOne(endpoints.posts,id)
+    }
 
 </script>
 <h1>
@@ -36,13 +40,24 @@ import { endpoints, getAll } from "../services/Api.js";
 <section>
     <hr>
     <h2>Blog Posts</h2>
+    {#if posts}
+        <p>No Posts exists.</p>
+    {/if}
     {#each posts as {id,title, content} (id)}
         <article class="post">
-            <h5 class="title">
-                <a href={`/blog/post/${id}`}>
-                    {title}
-                </a>
-            </h5>
+            <header class="post-header">
+                <h5 class="title">
+                    <a href={`/blog/posts/${id}`}>
+                        {title}
+                    </a>
+                </h5>
+                <span>
+                    <button on:click="{onDeletePost(id)}" class="btn delete">
+                        x
+                    </button>
+
+                </span>
+            </header>
             <p class="content-snapshot">{@html content}</p>
         </article>
     {/each}
@@ -50,16 +65,26 @@ import { endpoints, getAll } from "../services/Api.js";
 
 
 <style>
-    .post .title {
+
+    .delete {
+        color: var(--pop);
+    }
+    .post-header {
+        display: flex;
+        font-size: 1.5rem;
+    }
+
+    .title {
+        flex: 1;
         text-transform: capitalize;
         margin-bottom: 1rem;
     }
+
     .post {
-        border: 1px ridge var(--primary);
-        background-color: white;
+        background-color: var(--white);
         max-width: 900px;
         border-radius: 1rem;
-        box-shadow: .1rem .1rem .1rem #00000008;
+        box-shadow: .1em .1em .1em #00000028;
         padding: 2em;
         margin: 2em 0;        
     }
