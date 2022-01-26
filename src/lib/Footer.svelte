@@ -1,5 +1,5 @@
 <footer>
-    &copy Copyright Michael Sjögren 2022
+    &copy Copyright Michael Sjögren {new Date().getFullYear()}
 </footer>
 
 <style>
