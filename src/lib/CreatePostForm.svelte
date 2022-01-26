@@ -3,7 +3,7 @@
 
     import { create, endpoints } from "../services/Api";
     import { postsStore } from "../store.js";
-
+    import FormError from "$lib/FormError.svelte"
 
     let newPost = {
         title: "",
@@ -60,18 +60,14 @@
                 type="text"
             />
             {#if errors.title !== ''}
-            <div>
-                {errors.title}
-            </div>
+                <FormError>{errors.title}</FormError>
             {/if}
         </div>
         <div>
             <label for="content">Content</label>
             <textarea id="content" bind:value={fields.content} name="content" />
             {#if errors.content !== ''}
-            <div>
-                {errors.content}
-            </div>
+                <FormError>{errors.content}</FormError>
             {/if}
         </div>
         <div>
