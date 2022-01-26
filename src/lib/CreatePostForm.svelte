@@ -99,6 +99,8 @@
         resize: vertical;
         border: 1px solid rgba(0, 0, 0, 0.068);
         transition: all 0.25s;
+        filter: brightness(.99);
+        background-color: var(--white);
     }
 
     .btn {
@@ -110,6 +112,8 @@
         transition: all 0.25s;
     }
     input {
+        background-color: var(--white);
+        filter: brightness(.99);
         border-radius: 0.25rem;
         font-size: 1rem;
         padding: 0.5em;
@@ -120,7 +124,7 @@
         font-size: 1.15rem;
         padding: 0.5em 0;
         display: block;
-        font-weight: 300;
+        font-weight: 500;
     }
     input:focus {
         outline: none;
