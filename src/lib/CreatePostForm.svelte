@@ -2,17 +2,18 @@
     import { sanitizeHTML } from "../services/Sanitizer.js";
 
     import { create, endpoints } from "../services/Api";
+    import { postsStore } from "../store.js";
+
 
     let newPost = {
         title: "",
         content: "",
         authorid: 0,
     };
-
     let valid = false;
     let fields = { title: "", content: "", authorid: 1 };
     let errors = { title: "", content: "", authorid: 1 };
-
+    
     const onSubmitForm = (e) => {
         valid = true;
         if (fields.title.trim().length < 5) {
@@ -36,11 +37,12 @@
         fields.content = sanitizeHTML(fields.content);
         console.log("Santized Field", fields.content);
 
-        create(endpoints.posts, fields).then( res =>  {
-            console.log(res);
+        create(endpoints.posts, fields).then( data =>  {
+            console.log(data);
 
             fields.title = "";
             fields.content = "";
+            $postsStore = [...$postsStore,data]
         })
 
     };
