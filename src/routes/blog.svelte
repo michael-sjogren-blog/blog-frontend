@@ -7,7 +7,6 @@
     onMount(() =>
         getAll(endpoints.posts).then((data) => {
             $postsStore = data;
-            console.log($postsStore)
         })
     );
     const onDeletePost = (id) => {
@@ -28,30 +27,33 @@
     {#if $postsStore === undefined}
         <p>No Posts exists.</p>
     {:else}
-        {#each $postsStore as { id, title, content } (id)}
+        {#each $postsStore as { id, title, likeCount, authorId, datePosted, content } (id)}
             <article class="post">
+                <small class="post-date">
+                    {new Date(datePosted).toDateString()}
+                </small>
+                <small class="post-author">
+                    ,AuthorId: {authorId}
+                </small>
+                <small class="post-likes">
+                    ,Likes: {likeCount}
+                </small>
                 <header class="post-header">
                     <h5 class="title">
                         <a href={`/blog/posts/${id}`}>
                             {title}
                         </a>
+
                     </h5>
-                    <span>
-                        <button on:click={onDeletePost(id)} class="btn delete">
-                            x
-                        </button>
-                    </span>
                 </header>
-                <p class="content-snapshot">{@html content}</p>
+                <p class="post-content-snapshot">{@html content}</p>
             </article>
         {/each}
     {/if}
 </section>
 
 <style>
-    .delete {
-        color: var(--danger);
-    }
+
     .post-header {
         display: flex;
         font-size: 1.5rem;
@@ -72,7 +74,7 @@
         margin: 2em 0;
     }
 
-    .content-snapshot {
+    .post-content-snapshot {
         text-align: justify;
         line-height: 1.5rem;
         max-height: 200px;
