@@ -12,8 +12,6 @@ const request = {
     headers: {
         'Content-Type':'application/json'
     },
-    redirect:'follow',
-    referrerPolicy: 'no-referrer',
     body:''
 }
 

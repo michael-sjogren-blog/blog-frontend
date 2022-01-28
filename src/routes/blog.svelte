@@ -40,7 +40,7 @@
                 </small>
                 <header class="post-header">
                     <h5 class="title">
-                        <a href={`/blog/posts/${id}`}>
+                        <a href={`/posts/${id}`}>
                             {title}
                         </a>
 
