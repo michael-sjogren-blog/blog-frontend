@@ -1,12 +1,9 @@
 <script>
     import { sanitizeHTML } from "../services/Sanitizer.js";
-    import EditorJS from '@editorjs/editorjs';
     import { create, endpoints } from "../services/Api";
     import { postsStore } from "../store.js";
     import FormError from "$lib/FormError.svelte"
-    import {Header , List , Embed} from "@editorjs/editorjs";
-
-
+    import Editor from "cl-editor/src/Editor.svelte"
     let newPost = {
         title: "",
         content: "",
@@ -15,40 +12,32 @@
     let valid = false;
     let fields = { title: "", content: "", authorid: 1 };
     let errors = { title: "", content: "", authorid: 1 };
-    const editor = new EditorJS({
-        holder: "editorjs",
-        autofocus:true,
-        hideToolbar: false,
-        data: fields.content
-    });
+
+    let content = ''
+    let editor
+
     const onSubmitForm = (e) => {
         valid = true;
-        if (fields.title.trim().length < 5) {
+        if (fields.title.trim().length < 3) {
             valid = false;
             errors.title = "The title text must be above 5 characthers long.";
         } else {
             errors.title = "";
         }
 
-        if (fields.content.trim().length < 5) {
+        if (fields.content.trim().length < 1) {
             valid = false;
             errors.content =
-                "The content text must be above 5 characthers long.";
+                "The content text must be above 1 characther(s)";
         } else {
             errors.content = "";
         }
 
         if (!valid) return;
 
-        console.log("Unsanitized Field", fields.content);
-        fields.content = sanitizeHTML(fields.content);
-        console.log("Santized Field", fields.content);
-
         create(endpoints.posts, fields).then( data =>  {
-            console.log(data);
-
+            editor.setHtml("",true)
             fields.title = "";
-            fields.content = "";
             $postsStore = [...$postsStore,data]
         })
 
@@ -72,13 +61,7 @@
         </div>
         <div>
             <label for="content">Content</label>
-            {#await !editor.isReady}
-                <p>Loading editor</p>
-                <div hidden id="editorjs"></div>
-            {:then d} 
-                <div hidden={false} id="editorjs"></div>
-            {/await}
-            <textarea id="content" bind:value={fields.content} name="content" />
+            <Editor bind:this={editor} html={fields.content} on:change={(e) => fields.content = e.detail} />
             {#if errors.content !== ''}
                 <FormError>{errors.content}</FormError>
             {/if}
@@ -97,11 +80,7 @@
 </div>
 
 <style>
-    #editorjs {
-        border: 1px solid;
-        padding: 0;
-        margin: 0;
-    }
+
     form {
         margin: 0 auto;
         max-width: 100%;
