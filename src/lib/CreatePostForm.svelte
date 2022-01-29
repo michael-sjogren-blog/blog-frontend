@@ -1,9 +1,11 @@
 <script>
     import { sanitizeHTML } from "../services/Sanitizer.js";
-
+    import EditorJS from '@editorjs/editorjs';
     import { create, endpoints } from "../services/Api";
     import { postsStore } from "../store.js";
     import FormError from "$lib/FormError.svelte"
+    import {Header , List , Embed} from "@editorjs/editorjs";
+
 
     let newPost = {
         title: "",
@@ -13,7 +15,12 @@
     let valid = false;
     let fields = { title: "", content: "", authorid: 1 };
     let errors = { title: "", content: "", authorid: 1 };
-    
+    const editor = new EditorJS({
+        holder: "editorjs",
+        autofocus:true,
+        hideToolbar: false,
+        data: fields.content
+    });
     const onSubmitForm = (e) => {
         valid = true;
         if (fields.title.trim().length < 5) {
@@ -65,6 +72,12 @@
         </div>
         <div>
             <label for="content">Content</label>
+            {#await !editor.isReady}
+                <p>Loading editor</p>
+                <div hidden id="editorjs"></div>
+            {:then d} 
+                <div hidden={false} id="editorjs"></div>
+            {/await}
             <textarea id="content" bind:value={fields.content} name="content" />
             {#if errors.content !== ''}
                 <FormError>{errors.content}</FormError>
@@ -84,7 +97,13 @@
 </div>
 
 <style>
+    #editorjs {
+        border: 1px solid;
+        padding: 0;
+        margin: 0;
+    }
     form {
+        margin: 0 auto;
         max-width: 100%;
     }
     textarea {
