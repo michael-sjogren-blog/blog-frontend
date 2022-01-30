@@ -25,6 +25,11 @@
     cursor: pointer;
 }
 
+.container {
+    margin: 5rem auto;
+    max-width: 1280px;
+}
+
 a {
     font-weight: 500;
     color: var(--link);
@@ -34,6 +39,7 @@ a:hover{
 }
 
 body , html {
+    font-size: 18px;
     background-color: var(--white);
     margin: 0 auto;
     color: var(--black);
@@ -50,11 +56,11 @@ h1,h2,h3,h4,h5 {
     padding: 1rem auto;
 }
 h1 {
-    font-size: 4rem;
+    font-size: 3.7rem;
 }
 
 h2 {
-    font-size: 3.5rem;
+    font-size: 3.3rem;
 }
 
 h3 {
@@ -67,4 +73,64 @@ h4 {
 
 h5 {
     font-size: 2rem;
+}
+
+#page {
+    display: grid;
+    grid-template-areas: "header header header header"
+                         "main   main   main   main"
+                         "footer footer footer footer";
+}
+
+
+/*------------------------------------*\
+    $SMALL COMPUTER SCREENS
+\*------------------------------------*/
+ @media all and (max-width: 1034px) {
+
+}
+
+/*------------------------------------*\
+    $IPAD AND TABLET
+\*------------------------------------*/
+
+@media only screen and (max-width: 767px) {
+    html,body{
+
+        font-size: 14px;
+    }
+
+    #page {
+        grid-template-areas:"header"
+                            "main"
+                            "footer";
+    }
+}
+
+/*------------------------------------*\
+    $IPHONE 4S LANDSCAPE
+\*------------------------------------*/
+
+@media only screen and (max-width : 480px) {
+    html,body{
+
+        font-size: 12px;
+    }
+
+    #page {
+        grid-template-areas:"header"
+                            "main"
+                            "footer";
+    }
+}
+
+/*------------------------------------*\
+    $IHPONE 4S
+\*------------------------------------*/
+
+@media only screen and (max-width : 320px) {
+    html,body{
+
+        font-size: 10px;
+    }
 }

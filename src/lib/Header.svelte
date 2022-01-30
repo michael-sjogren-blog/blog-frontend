@@ -5,3 +5,9 @@ import Nav from "$lib/Nav.svelte";
 <header>
     <Nav/>
 </header>
+
+<style>
+    header{
+        grid-area: header;
+    }
+</style>

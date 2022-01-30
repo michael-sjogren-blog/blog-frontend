@@ -4,9 +4,18 @@ import Header from "$lib/Header.svelte";
 import '../styles/globals.css';
 
 </script>
-<Header/>
-<main>
-    <slot></slot>
-</main>
-
-<Footer/>
+<div id="page">
+    <Header/>
+    <main class="container">
+        <slot></slot>
+    </main>
+    
+    <Footer/>
+</div>
+    
+<style>
+    main {
+        grid-area: main;
+    }
+    
+</style>

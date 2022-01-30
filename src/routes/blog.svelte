@@ -20,40 +20,57 @@
         });
     };
 </script>
-
 <h1>Blog Posts</h1>
-<CreatePostForm />
-<section>
-    {#if $postsStore === undefined}
-        <p>No Posts exists.</p>
-    {:else}
-        {#each $postsStore as { id, title, likeCount, authorId, datePosted, content } (id)}
-            <article class="post">
-                <small class="post-date">
-                    {new Date(datePosted).toDateString()}
-                </small>
-                <small class="post-author">
-                    ,AuthorId: {authorId}
-                </small>
-                <small class="post-likes">
-                    ,Likes: {likeCount}
-                </small>
-                <header class="post-header">
-                    <h5 class="title">
-                        <a href={`/posts/${id}`}>
-                            {title}
-                        </a>
 
-                    </h5>
-                </header>
-                <p class="post-content-snapshot">{@html content}</p>
-            </article>
-        {/each}
-    {/if}
+<section class="posts-container">
+    <div class="create-form">
+        <CreatePostForm />
+    </div>
+    <div class="posts">
+        {#if $postsStore === undefined}
+            <p>No Posts exists.</p>
+        {:else}
+            {#each $postsStore as { id, title, likeCount, authorId, datePosted, content } (id)}
+                <article class="post">
+                    <small class="post-date">
+                        {new Date(datePosted).toDateString()}
+                    </small>
+                    <small class="post-author">
+                        ,AuthorId: {authorId}
+                    </small>
+                    <small class="post-likes">
+                        ,Likes: {likeCount}
+                    </small>
+                    <header class="post-header">
+                        <h5 class="title">
+                            <a href={`/posts/${id}`}>
+                                {title}
+                            </a>
+                        </h5>
+                    </header>
+                    <p class="post-content-snapshot">{@html content}</p>
+                </article>
+            {/each}
+        {/if}
+    </div>
 </section>
 
 <style>
+    .create-form {
+        grid-area: form;
+    }
+    .posts-container {
+        display: grid;
+        grid-template-areas:
+            "posts form form ."
+            "posts form form .";
+    }
 
+    .posts {
+        margin: 1rem;
+        max-width: 600px;
+        grid-area: posts;
+    }
     .post-header {
         display: flex;
         font-size: 1.5rem;
